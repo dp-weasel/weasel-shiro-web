@@ -80,7 +80,7 @@ lleva una `etiqueta` (EJEMPLO, Idea, Historia supuesta…): al borrarla del YAML
 Se eligió la versión 4 (la del directo). Rama `feature/gw2-tierlist`.
 
 - [x] Dejarla en `/gw2/tierlist/` sin `noindex` ni pestañas de versiones, y sumarla a la cabecera.
-- [ ] Sumarla también a "Herramientas" en la portada (hoy solo está la tarjeta de Mensajes con EDM señalando).
+- [x] Sumarla también a "Herramientas" en la portada (`src/content/portada/herramientas.yaml`).
 - [ ] Nombres de las élites: van en inglés (como se dicen en el chat). ¿Pasarlos al castellano del cliente?
 - [ ] Reacciones de EDM (`src/content/gw2/tierlist-edm.yaml`): revisar frases y poses. Con más o menos
       de cinco filas se reparten con `nivelDeFila` (la primera es S, la última D).
