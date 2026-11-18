@@ -1,7 +1,8 @@
 // Profesiones y especializaciones de élite de Guild Wars 2 para la tierlist.
 // Los íconos salen de RecursosCC/GW2/Profesiones (ver scripts/gw2/importar-profesiones.mjs).
-// Las profesiones van en castellano (como en el cliente en español) y las élites
-// con su nombre en inglés, que es como se las nombra en el chat y en las guías.
+// Los nombres son los oficiales del cliente en español (API de GW2 con lang=es).
+// El id de cada élite es su nombre en inglés: es el que se guarda en el navegador y en
+// los enlaces compartidos, y el nombre de su ícono. No cambiarlo.
 import type { ImageMetadata } from "astro";
 
 const iconos = import.meta.glob<{ default: ImageMetadata }>("../../assets/gw2/profesiones/*.png", { eager: true });
@@ -32,25 +33,28 @@ export interface Especializacion {
   img: ImageMetadata;
 }
 
+type Elite = [id: string, nombre: string];
+
 export interface Profesion {
   id: string;
   nombre: string;
   armadura: Armadura;
   /** Color oficial de la profesión (el de la wiki y la interfaz del juego). */
   color: string;
-  elites: [hot: string, pof: string, eod: string, voe: string];
+  /** [id en inglés, nombre en español] de cada élite, en orden de expansión. */
+  elites: [hot: Elite, pof: Elite, eod: Elite, voe: Elite];
 }
 
 export const profesiones: Profesion[] = [
-  { id: "guardian", nombre: "Guardián", armadura: "pesada", color: "#72c1d9", elites: ["Dragonhunter", "Firebrand", "Willbender", "Luminary"] },
-  { id: "warrior", nombre: "Guerrero", armadura: "pesada", color: "#ffd166", elites: ["Berserker", "Spellbreaker", "Bladesworn", "Paragon"] },
-  { id: "revenant", nombre: "Retornado", armadura: "pesada", color: "#d16e5a", elites: ["Herald", "Renegade", "Vindicator", "Conduit"] },
-  { id: "engineer", nombre: "Ingeniero", armadura: "media", color: "#d09c59", elites: ["Scrapper", "Holosmith", "Mechanist", "Amalgam"] },
-  { id: "ranger", nombre: "Guardabosques", armadura: "media", color: "#8cdc82", elites: ["Druid", "Soulbeast", "Untamed", "Galeshot"] },
-  { id: "thief", nombre: "Ladrón", armadura: "media", color: "#c08f95", elites: ["Daredevil", "Deadeye", "Specter", "Antiquary"] },
-  { id: "elementalist", nombre: "Elementalista", armadura: "ligera", color: "#f68a87", elites: ["Tempest", "Weaver", "Catalyst", "Evoker"] },
-  { id: "mesmer", nombre: "Hipnotizador", armadura: "ligera", color: "#b679d5", elites: ["Chronomancer", "Mirage", "Virtuoso", "Troubadour"] },
-  { id: "necromancer", nombre: "Nigromante", armadura: "ligera", color: "#52a76f", elites: ["Reaper", "Scourge", "Harbinger", "Ritualist"] },
+  { id: "guardian", nombre: "Guardián", armadura: "pesada", color: "#72c1d9", elites: [["dragonhunter", "Cazadragones"], ["firebrand", "Abrasador"], ["willbender", "Subyugador"], ["luminary", "Luminaria"]] },
+  { id: "warrior", nombre: "Guerrero", armadura: "pesada", color: "#ffd166", elites: [["berserker", "Berserker"], ["spellbreaker", "Rompehechizos"], ["bladesworn", "Jurafilos"], ["paragon", "Paragón"]] },
+  { id: "revenant", nombre: "Retornado", armadura: "pesada", color: "#d16e5a", elites: [["herald", "Heraldo"], ["renegade", "Renegado"], ["vindicator", "Justiciero"], ["conduit", "Conductor"]] },
+  { id: "engineer", nombre: "Ingeniero", armadura: "media", color: "#d09c59", elites: [["scrapper", "Chatarrero"], ["holosmith", "Holoartesano"], ["mechanist", "Mechanista"], ["amalgam", "Amalgama"]] },
+  { id: "ranger", nombre: "Guardabosques", armadura: "media", color: "#8cdc82", elites: [["druid", "Druida"], ["soulbeast", "Bestialma"], ["untamed", "Indómito"], ["galeshot", "Vendaval"]] },
+  { id: "thief", nombre: "Ladrón", armadura: "media", color: "#c08f95", elites: [["daredevil", "Temerario"], ["deadeye", "Certero"], ["specter", "Espectro"], ["antiquary", "Anticuario"]] },
+  { id: "elementalist", nombre: "Elementalista", armadura: "ligera", color: "#f68a87", elites: [["tempest", "Tempestad"], ["weaver", "Tejedor"], ["catalyst", "Catalizador"], ["evoker", "Evocador"]] },
+  { id: "mesmer", nombre: "Hipnotizador", armadura: "ligera", color: "#b679d5", elites: [["chronomancer", "Cronomante"], ["mirage", "Quimérico"], ["virtuoso", "Virtuoso"], ["troubadour", "Trovador"]] },
+  { id: "necromancer", nombre: "Nigromante", armadura: "ligera", color: "#52a76f", elites: [["reaper", "Segador"], ["scourge", "Azotador"], ["harbinger", "Augurador"], ["ritualist", "Ritualista"]] },
 ];
 
 const ordenElites: Expansion[] = ["hot", "pof", "eod", "voe"];
@@ -58,11 +62,11 @@ const ordenElites: Expansion[] = ["hot", "pof", "eod", "voe"];
 /** Las 45 fichas: cada profesión base seguida de sus cuatro élites. */
 export const especializaciones: Especializacion[] = profesiones.flatMap((p) => [
   { id: p.id, nombre: p.nombre, profesion: p.id, expansion: "base" as Expansion, img: icono(p.id) },
-  ...p.elites.map((e, i) => ({
-    id: e.toLowerCase(),
-    nombre: e,
+  ...p.elites.map(([id, nombre], i) => ({
+    id,
+    nombre,
     profesion: p.id,
     expansion: ordenElites[i],
-    img: icono(e.toLowerCase()),
+    img: icono(id),
   })),
 ]);

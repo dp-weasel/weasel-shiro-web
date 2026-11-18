@@ -4,6 +4,7 @@ import { coloresExtra, nivelDeFila, type Plantilla, type ReaccionesEdm } from ".
 import type { PoseEdm } from "../../lib/edm";
 import { showToast } from "../comun/toast";
 import { copyText } from "../comun/clipboard";
+import { normalize } from "../comun/text";
 import { activarArrastre } from "./arrastre";
 import { cargar, guardar, aEnlace, deEnlace, estadoInicial, type Estado } from "./estado";
 import { dibujar, aBlob } from "./exportar";
@@ -162,7 +163,7 @@ export function iniciarTierlist(raiz: HTMLElement): void {
   /* ---------- Filtros del banco ---------- */
 
   function filtrar(): void {
-    const q = $<HTMLInputElement>("[data-buscar]")!.value.trim().toLowerCase();
+    const q = normalize($<HTMLInputElement>("[data-buscar]")!.value.trim());
     const exps = new Set([...raiz.querySelectorAll<HTMLInputElement>("[data-exp]:checked")].map((i) => i.value));
     const armas = new Set([...raiz.querySelectorAll<HTMLInputElement>("[data-armadura]:checked")].map((i) => i.value));
     for (const f of banco.querySelectorAll<HTMLElement>(".ficha")) {
