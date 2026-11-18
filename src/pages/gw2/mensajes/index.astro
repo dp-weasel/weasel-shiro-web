@@ -9,6 +9,7 @@ import SearchBox from "../../../components/mensajes/SearchBox.astro";
 import Tabs from "../../../components/mensajes/Tabs.astro";
 import Toast from "../../../components/ui/Toast.astro";
 import Bocadillo from "../../../components/marca/Bocadillo.astro";
+import Transferencia from "../../../components/mensajes/Transferencia.astro";
 import { getCategories } from "../../../lib/gw2/mensajes";
 import { leer } from "../../../lib/contenido";
 import { imagenEdm } from "../../../lib/imagenes";
@@ -43,7 +44,10 @@ const frases = {
       <Tabs categories={categories} conteo />
 
       <aside class="lado" aria-label="EDM te ayuda">
-        <button type="button" class="ver-edm" data-ver-edm aria-pressed="true" aria-controls="edm">🙈 Ocultar a EDM</button>
+        <div class="botones-lado">
+          <Transferencia />
+          <button type="button" class="ver-edm" data-ver-edm aria-pressed="true" aria-controls="edm">🙈 Ocultar a EDM</button>
+        </div>
         <script is:inline>
           // Aplica la preferencia antes de pintar, para que EDM no aparezca y desaparezca.
           try {
@@ -89,9 +93,10 @@ const frases = {
 
   .lado { grid-column: 2; grid-row: 3 / span 2; align-self: start; position: sticky; top: 1rem; display: grid; gap: 1.25rem; }
 
-  /* Botón para mostrar u ocultar a EDM, igual al de la tierlist. */
+  /* Exportar, importar y mostrar u ocultar a EDM (este último igual al de la tierlist). */
+  .botones-lado { justify-self: end; display: flex; flex-wrap: wrap; justify-content: flex-end; gap: .5rem; margin-bottom: -.5rem; }
   .ver-edm {
-    justify-self: end; height: 2.5rem; margin-bottom: -.5rem; padding: 0 1rem;
+    height: 2.5rem; padding: 0 1rem;
     border: 1px solid var(--border); border-radius: .6rem;
     background: var(--surface); color: var(--text); font: inherit; font-weight: 700; cursor: pointer;
   }
