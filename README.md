@@ -54,6 +54,27 @@ textos editados, claves eliminadas y mensajes agregados. Por eso los mensajes nu
 le aparecen a todo el mundo, y si una persona editó un mensaje, conserva su versión aunque cambies
 el original. Ver `src/scripts/mensajes/messages-store.ts` y `src/scripts/mensajes/messages-editor.ts`.
 
+### Exportar e importar
+
+Al lado de «Ocultar a EDM» están **Exportar** e **Importar**. Exportar descarga en YAML lo que la
+persona ve en cada pestaña (Personalizado incluido). El formato es el mismo para importar:
+
+```yaml
+version: 1
+pestanas:
+  fractales:                 # id de la pestaña (nombre del archivo en src/content/gw2/mensajes/)
+    nombre: "Fractales"      # opcional
+    mensajes:
+      lfg-t4: "LFG T4 diarios…"
+```
+
+Al importar (archivo o texto pegado) primero se valida: YAML correcto, ids y claves en minúsculas,
+textos no vacíos y de hasta 199 caracteres. Si está bien, se elige entre **combinar** con lo que ya
+hay (no se pierde nada y no se repiten textos) o **usar solo los importados** (lo publicado que no
+venga queda eliminado y se puede restaurar). Las pestañas que no existen van a Personalizado.
+Siempre se puede deshacer. Ver `src/scripts/mensajes/transferencia.ts` (lógica) y
+`transferencia-ui.ts` (diálogo); la librería `yaml` se carga solo al importar.
+
 ## Estructura
 
 ```text

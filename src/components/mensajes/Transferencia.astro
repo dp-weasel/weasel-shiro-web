@@ -1,0 +1,98 @@
+---
+// Botones para exportar e importar los mensajes, y el diálogo de importación.
+// La lógica está en src/scripts/mensajes/transferencia-ui.ts (la inicia el editor).
+---
+
+<button type="button" class="boton-lado" data-exportar title="Descarga tus mensajes como texto (YAML)">⬇ Exportar</button>
+<button type="button" class="boton-lado" data-importar title="Carga mensajes desde un archivo exportado">⬆ Importar</button>
+
+<dialog class="importar" data-importar-dialogo aria-labelledby="importar-titulo">
+  <div class="caja">
+    <h2 id="importar-titulo">Importar mensajes</h2>
+    <p class="ayuda">Elegí un archivo exportado desde esta página, o pegá su texto. Se revisa antes de cargar nada.</p>
+
+    <div class="fuente">
+      <button type="button" class="secundario" data-importar-elegir>📄 Elegir archivo…</button>
+      <input type="file" accept=".yaml,.yml,.txt,text/yaml,text/plain" data-importar-archivo hidden />
+      <span class="archivo" data-importar-nombre></span>
+    </div>
+    <textarea
+      data-importar-texto
+      rows="9"
+      spellcheck="false"
+      aria-label="Texto a importar"
+      placeholder={'version: 1\npestanas:\n  fractales:\n    mensajes:\n      lfg-t4: "LFG T4 diarios…"'}></textarea>
+
+    <div class="resultado" data-importar-resultado aria-live="polite"></div>
+
+    <div class="acciones" data-importar-acciones>
+      <button type="button" class="secundario" data-importar-cancelar>Cancelar</button>
+      <button type="button" class="principal" data-importar-revisar>Revisar</button>
+    </div>
+    <div class="modos" data-importar-modos hidden>
+      <button type="button" class="modo" data-importar-modo="combinar">
+        <strong>Combinar con mis mensajes</strong>
+        <span>Suma los del archivo a los que ya tenés (los publicados y los tuyos). Los textos que ya están no se repiten.</span>
+      </button>
+      <button type="button" class="modo reemplazar" data-importar-modo="reemplazar">
+        <strong>Usar solo los importados</strong>
+        <span>Cada pestaña queda solo con los mensajes del archivo. Los publicados que no vengan se ocultan y se pueden restaurar.</span>
+      </button>
+      <button type="button" class="secundario" data-importar-cancelar>Cancelar</button>
+    </div>
+  </div>
+</dialog>
+
+<style>
+  .boton-lado {
+    height: 2.5rem; padding: 0 1rem;
+    border: 1px solid var(--border); border-radius: .6rem;
+    background: var(--surface); color: var(--text); font: inherit; font-weight: 700; cursor: pointer;
+  }
+  .boton-lado:hover { border-color: var(--accent); }
+
+  .importar {
+    width: min(36rem, calc(100vw - 2rem)); max-height: calc(100dvh - 2rem); padding: 0;
+    border: 1px solid var(--border); border-radius: 1rem;
+    background: var(--bg); color: var(--text);
+  }
+  .importar::backdrop { background: rgb(0 0 0 / .6); }
+  .caja { display: grid; gap: .9rem; padding: 1.25rem; }
+  h2 { margin: 0; font-size: 1.3rem; }
+  .ayuda { margin: 0; color: var(--muted); }
+  .fuente { display: flex; align-items: center; gap: .75rem; flex-wrap: wrap; }
+  .archivo { color: var(--muted); font-size: .9rem; overflow-wrap: anywhere; }
+  textarea {
+    width: 100%; box-sizing: border-box; resize: vertical; padding: .75rem;
+    border: 1px solid var(--border); border-radius: .6rem;
+    background: var(--surface); color: var(--text); font: .85rem/1.45 ui-monospace, monospace;
+  }
+  textarea:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+
+  .resultado:empty { display: none; }
+  .resultado { padding: .75rem 1rem; border-radius: .6rem; border-left: 4px solid var(--border); background: var(--surface); font-size: .92rem; }
+  .resultado :global(p) { margin: 0; }
+  .resultado :global(ul) { margin: .4rem 0 0; padding-left: 1.2rem; }
+  .resultado :global(li + li) { margin-top: .2rem; }
+  .resultado:global(.error) { border-left-color: #e5484d; }
+  .resultado:global(.valido) { border-left-color: #46a758; }
+  .resultado :global(.aviso) { color: var(--muted); }
+
+  .acciones { display: flex; justify-content: flex-end; gap: .5rem; }
+  .modos { display: grid; gap: .5rem; }
+  .modos .secundario { justify-self: end; }
+  button { font: inherit; cursor: pointer; }
+  .principal, .secundario { padding: .55rem 1.1rem; border-radius: .6rem; font-weight: 700; }
+  .principal { border: 0; background: var(--accent); color: var(--on-accent); }
+  .principal:hover { background: var(--accent-strong); }
+  .secundario { border: 1px solid var(--border); background: var(--surface); color: var(--text); }
+  .secundario:hover { border-color: var(--accent); }
+  .modo {
+    display: grid; gap: .2rem; padding: .8rem 1rem; text-align: left;
+    border: 2px solid var(--accent); border-radius: .75rem; background: var(--surface); color: var(--text);
+  }
+  .modo:hover { background: var(--surface-hover); }
+  .modo span { color: var(--muted); font-size: .88rem; }
+  .modo.reemplazar { border-color: var(--border); }
+  .modo.reemplazar:hover { border-color: #e5484d; }
+</style>

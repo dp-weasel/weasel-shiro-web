@@ -3,10 +3,11 @@
 // Los mensajes publicados llegan en el HTML (generado al compilar desde
 // src/content/gw2/mensajes/). Al cargar, se leen de ahí y cada pestaña se vuelve a
 // pintar aplicando los cambios guardados de la persona (ver messages-store.ts).
-import { GW2_CHAT_LIMIT } from "../../lib/gw2/chat";
+import { CUSTOM_TAB, GW2_CHAT_LIMIT } from "../../lib/gw2/chat";
 import { loadOverrides, newId, saveOverrides, type Overrides } from "./messages-store";
 import { normalize } from "../comun/text";
 import { showToast } from "../comun/toast";
+import { initTransferencia } from "./transferencia-ui";
 
 type Origin = "base" | "edited" | "custom";
 
@@ -96,14 +97,15 @@ export function initMessageEditor(root: HTMLElement): void {
 
   const notifyChanged = () => document.dispatchEvent(new Event("messages:changed"));
 
-  /** Guarda, vuelve a pintar la pestaña y avisa al buscador. */
-  const commit = (tab: string, next: Overrides) => {
+  /** Guarda, vuelve a pintar la pestaña (o todas, sin `tab`) y avisa al buscador. */
+  const commit = (tab: string | null, next: Overrides) => {
     state = next;
     if (!saveOverrides(state) && !warnedStorage) {
       warnedStorage = true;
       showToast("Tu navegador no permite guardar: los cambios se perderán al cerrar la página", { ms: 4000 });
     }
-    render(tab);
+    if (tab) render(tab);
+    else for (const t of panels.keys()) render(t);
     notifyChanged();
   };
 
@@ -267,4 +269,20 @@ export function initMessageEditor(root: HTMLElement): void {
 
   for (const tab of panels.keys()) render(tab);
   notifyChanged();
+
+  // Exportar e importar (botones al lado de «Ocultar a EDM»).
+  const baseSinPersonalizado = new Map([...base].filter(([tab]) => tab !== CUSTOM_TAB.id));
+  initTransferencia({
+    base: baseSinPersonalizado,
+    estado: () => state,
+    pestanas: () =>
+      [...root.querySelectorAll<HTMLElement>('[role="tab"]')].map((t) => ({
+        id: t.dataset.tabId!,
+        nombre: t.querySelector(".tab-name")?.textContent?.trim() || t.dataset.tabId!,
+      })),
+    guardarTodo: (next) => {
+      closeEditors();
+      commit(null, next);
+    },
+  });
 }
