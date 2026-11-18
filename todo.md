@@ -81,7 +81,7 @@ Se eligió la versión 4 (la del directo). Rama `feature/gw2-tierlist`.
 
 - [x] Dejarla en `/gw2/tierlist/` sin `noindex` ni pestañas de versiones, y sumarla a la cabecera.
 - [x] Sumarla también a "Herramientas" en la portada (`src/content/portada/herramientas.yaml`).
-- [ ] Nombres de las élites: van en inglés (como se dicen en el chat). ¿Pasarlos al castellano del cliente?
+- [x] Nombres de las élites en castellano (los oficiales del cliente; el buscador también encuentra el nombre en inglés).
 - [ ] Reacciones de EDM (`src/content/gw2/tierlist-edm.yaml`): revisar frases y poses. Con más o menos
       de cinco filas se reparten con `nivelDeFila` (la primera es S, la última D).
 - [ ] Votación del chat (IDEA, oculta con `MOSTRAR_VOTACION` en `TierList.astro`): leer el chat de Twitch y

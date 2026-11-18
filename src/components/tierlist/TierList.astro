@@ -9,6 +9,7 @@ import type { ReaccionesEdm } from "../../lib/gw2/tierlist";
 import type { PoseEdm } from "../../lib/edm";
 import { leer } from "../../lib/contenido";
 import { imagenEdm } from "../../lib/imagenes";
+import { normalize } from "../../scripts/comun/text";
 import Bocadillo from "../marca/Bocadillo.astro";
 import Ejemplo from "../ui/Ejemplo.astro";
 
@@ -82,7 +83,7 @@ const config = { plantillas, reacciones: reaccionesEdm, poses };
 
   <section class="tl-banco" aria-label="Fichas sin ubicar">
     <div class="tl-filtros">
-      <input type="search" data-buscar placeholder="Buscar (p. ej. ladrón, specter)…" aria-label="Buscar especialización" />
+      <input type="search" data-buscar placeholder="Buscar (p. ej. ladrón, espectro)…" aria-label="Buscar especialización" />
       <fieldset class="chips" aria-label="Expansión">
         {Object.entries(expansiones).map(([id, x]) => (
           <label title={x.nombre}><input type="checkbox" data-exp value={id} checked /> {x.corto}</label>
@@ -102,7 +103,7 @@ const config = { plantillas, reacciones: reaccionesEdm, poses };
           class="ficha"
           data-id={f.id}
           data-nombre={f.nombre}
-          data-buscar={`${f.nombre} ${f.prof.nombre} ${f.prof.id}`.toLowerCase()}
+          data-buscar={normalize(`${f.nombre} ${f.id} ${f.prof.nombre} ${f.prof.id}`)}
           data-exp={f.expansion}
           data-armadura={f.prof.armadura}
           style={`--prof: ${f.prof.color}`}
