@@ -22,6 +22,7 @@ import Reglas from "../components/portada/Reglas.astro";
 import Apoyar from "../components/portada/Apoyar.astro";
 import Ejemplo from "../components/ui/Ejemplo.astro";
 import armino from "../assets/brand/weasel-auriculares.png"; // = RecursosCC/pngTuber/weasel.png
+import sticker from "../assets/brand/weasel-sticker-insignia.png"; // = RecursosCC/weasel-sticker-insignia.png
 import edmApuntando from "../assets/brand/edm/apuntando.png";
 import { leer, conNegritas } from "../lib/contenido";
 import { imagenEdm } from "../lib/imagenes";
@@ -51,7 +52,7 @@ const despedida = await leer("despedida");
          de referencia de cómo quedaría. -->
     <section class="banner">
       <div class="naranja" aria-hidden="true">
-        <Image src={armino} alt="" width={640} widths={[320, 480, 640]} sizes="(max-width: 48rem) 70vw, 34vw" loading="eager" />
+        <Image src={sticker} alt="" width={640} widths={[320, 480, 640]} sizes="(max-width: 48rem) 60vw, 30vw" loading="eager" />
       </div>
       <div class="marca-agua" aria-hidden="true">
         <Image src={armino} alt="" width={640} widths={[320, 640]} sizes="40vw" />
@@ -200,13 +201,13 @@ const despedida = await leer("despedida");
   }
   .naranja {
     align-self: stretch;
-    display: grid; place-items: end center;
+    display: grid; place-items: center;
     background: linear-gradient(160deg, var(--amber) 55%, var(--vermilion));
     clip-path: polygon(0 0, 100% 0, 78% 100%, 0 100%);
   }
-  /* Tamaño por alto: el armiño ocupa casi toda la altura del panel, apoyado abajo.
+  /* Sticker "insignia" (RecursosCC/prototipoArmiño, estilo 07): centrado, un poco inclinado.
      max-width evita que se meta en el corte diagonal del lado derecho. */
-  .naranja img { height: 90%; width: auto; max-width: 78%; object-fit: contain; object-position: bottom; margin-right: 14%; filter: drop-shadow(0 .5rem 0 rgb(0 0 0 / .2)); }
+  .naranja img { height: 78%; width: auto; max-width: 70%; object-fit: contain; margin-right: 16%; transform: rotate(-4deg); filter: drop-shadow(0 .6rem .8rem rgb(0 0 0 / .35)); }
   .marca-agua :global(img) { display: block; width: 100%; height: auto; }
   .marca-agua {
     position: absolute; z-index: -1; right: -6%; top: 50%;
@@ -307,8 +308,9 @@ const despedida = await leer("despedida");
   @media (max-width: 48rem) {
     .banner { grid-template-columns: 1fr; }
     .naranja { height: 17rem; clip-path: polygon(0 0, 100% 0, 100% 75%, 0 100%); }
-    /* Alto fijo: más grande y el corte diagonal de abajo no le tapa la boca. */
-    .naranja img { height: 13.5rem; max-width: 80%; margin: 0; }
+    /* Arriba del panel, para que el corte diagonal de abajo no muerda el círculo. */
+    .naranja { place-items: start center; padding-top: 1rem; }
+    .naranja img { height: 12.5rem; max-width: 80%; margin: 0; }
       .texto { padding: 1.5rem 1rem 3rem; }
     .marca-agua { width: 90vw; top: 70%; }
   }
