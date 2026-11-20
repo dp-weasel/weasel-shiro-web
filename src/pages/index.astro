@@ -204,8 +204,9 @@ const despedida = await leer("despedida");
     background: linear-gradient(160deg, var(--amber) 55%, var(--vermilion));
     clip-path: polygon(0 0, 100% 0, 78% 100%, 0 100%);
   }
-  /* El PNG viene recortado justo al dibujo (sin margen transparente), por eso va más chico. */
-  .naranja img { width: min(58%, 19rem); height: auto; margin-right: 18%; filter: drop-shadow(0 .5rem 0 rgb(0 0 0 / .2)); }
+  /* Tamaño por alto: el armiño ocupa casi toda la altura del panel, apoyado abajo.
+     max-width evita que se meta en el corte diagonal del lado derecho. */
+  .naranja img { height: 90%; width: auto; max-width: 78%; object-fit: contain; object-position: bottom; margin-right: 14%; filter: drop-shadow(0 .5rem 0 rgb(0 0 0 / .2)); }
   .marca-agua :global(img) { display: block; width: 100%; height: auto; }
   .marca-agua {
     position: absolute; z-index: -1; right: -6%; top: 50%;
@@ -305,8 +306,9 @@ const despedida = await leer("despedida");
 
   @media (max-width: 48rem) {
     .banner { grid-template-columns: 1fr; }
-    .naranja { height: 15rem; clip-path: polygon(0 0, 100% 0, 100% 75%, 0 100%); }
-    .naranja img { width: 10rem; margin: 0; }
+    .naranja { height: 17rem; clip-path: polygon(0 0, 100% 0, 100% 75%, 0 100%); }
+    /* Alto fijo: más grande y el corte diagonal de abajo no le tapa la boca. */
+    .naranja img { height: 13.5rem; max-width: 80%; margin: 0; }
       .texto { padding: 1.5rem 1rem 3rem; }
     .marca-agua { width: 90vw; top: 70%; }
   }
