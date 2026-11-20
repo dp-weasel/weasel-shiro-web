@@ -21,7 +21,7 @@ import Videos from "../components/portada/Videos.astro";
 import Reglas from "../components/portada/Reglas.astro";
 import Apoyar from "../components/portada/Apoyar.astro";
 import Ejemplo from "../components/ui/Ejemplo.astro";
-import armino from "../assets/brand/weasel-mouth-closed-headphones.png";
+import armino from "../assets/brand/weasel-auriculares.png"; // = RecursosCC/pngTuber/weasel.png
 import edmApuntando from "../assets/brand/edm/apuntando.png";
 import { leer, conNegritas } from "../lib/contenido";
 import { imagenEdm } from "../lib/imagenes";
@@ -204,7 +204,8 @@ const despedida = await leer("despedida");
     background: linear-gradient(160deg, var(--amber) 55%, var(--vermilion));
     clip-path: polygon(0 0, 100% 0, 78% 100%, 0 100%);
   }
-  .naranja img { width: min(80%, 26rem); height: auto; margin-right: 18%; filter: drop-shadow(0 .5rem 0 rgb(0 0 0 / .2)); }
+  /* El PNG viene recortado justo al dibujo (sin margen transparente), por eso va más chico. */
+  .naranja img { width: min(58%, 19rem); height: auto; margin-right: 18%; filter: drop-shadow(0 .5rem 0 rgb(0 0 0 / .2)); }
   .marca-agua :global(img) { display: block; width: 100%; height: auto; }
   .marca-agua {
     position: absolute; z-index: -1; right: -6%; top: 50%;
@@ -305,7 +306,7 @@ const despedida = await leer("despedida");
   @media (max-width: 48rem) {
     .banner { grid-template-columns: 1fr; }
     .naranja { height: 15rem; clip-path: polygon(0 0, 100% 0, 100% 75%, 0 100%); }
-    .naranja img { width: 13rem; margin: 0; }
+    .naranja img { width: 10rem; margin: 0; }
       .texto { padding: 1.5rem 1rem 3rem; }
     .marca-agua { width: 90vw; top: 70%; }
   }

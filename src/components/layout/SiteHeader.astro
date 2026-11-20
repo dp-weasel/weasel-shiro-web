@@ -1,7 +1,7 @@
 ---
 // Cabecera común: marca, navegación y botón de tema.
 import { Image } from "astro:assets";
-import logo from "../../assets/brand/weasel-mouth-closed-headphones.png";
+import logo from "../../assets/brand/weasel-auriculares.png";
 import ThemeToggle from "./ThemeToggle.astro";
 import { leer } from "../../lib/contenido";
 import { ruta } from "../../lib/rutas";
@@ -16,7 +16,7 @@ const activo = (href: string) => (href === "/" ? current === ruta("/") : current
 
 <header class="site-header">
   <a class="brand" href={ruta("/")}>
-    <span class="mini-logo"><Image src={logo} alt="" width={64} widths={[32, 64]} sizes="2rem" /></span>
+    <span class="mini-logo"><Image src={logo} alt="" height={64} widths={[28, 56]} sizes="2rem" /></span>
     <span>{nombre}</span>
   </a>
   <nav aria-label="Principal">
@@ -54,7 +54,8 @@ const activo = (href: string) => (href === "/" ? current === ruta("/") : current
     overflow: hidden;
     background: linear-gradient(135deg, var(--vermilion), var(--amber));
   }
-  .mini-logo img { display: block; width: 100%; height: auto; transform: translateY(5%) scale(1.1); }
+  /* Mismo encuadre que Logo.astro: PNG vertical ajustado por alto. */
+  .mini-logo img { display: block; height: 105%; width: auto; margin: 4% auto 0; }
   nav { display: flex; gap: .25rem; }
   nav a {
     padding: .4rem .75rem;
