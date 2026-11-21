@@ -10,7 +10,7 @@ import "@fontsource-variable/unbounded";
 import ArminoVivo from "../components/marca/ArminoVivo.astro";
 import Bocadillo from "../components/marca/Bocadillo.astro";
 import Ctas from "../components/marca/Ctas.astro";
-import Numeros from "../components/portada/Numeros.astro";
+// import Numeros from "../components/portada/Numeros.astro"; // franja con datos: en pausa
 import Presenta from "../components/portada/Presenta.astro";
 import Personajes from "../components/portada/Personajes.astro";
 import SobreMi from "../components/portada/SobreMi.astro";
@@ -65,8 +65,10 @@ const despedida = await leer("despedida");
       </div>
     </section>
 
-    <!-- Franja debajo del banner (de la variante 2) -->
-    <div class="franja"><Numeros /></div>
+    <!-- Franja debajo del banner: por ahora solo una cinta naranja que separa el banner
+         del contenido. Para volver a poner los datos: <div class="franja con-datos"><Numeros /></div>
+         (datos en src/content/portada/franja.yaml). -->
+    <div class="franja" aria-hidden="true"></div>
 
     <!-- 2. Cómo es el canal, charlado (de la 5) -->
     <section class="charla" aria-labelledby="valores">
@@ -227,13 +229,15 @@ const despedida = await leer("despedida");
 
 
   /* Franja: naranja inclinada debajo del banner, como en la variante 2. */
+  /* Sin datos: cinta inclinada de ~1,25rem de grosor, con el mismo ángulo que antes. */
   .franja {
-    margin-top: -2.5rem; position: relative; z-index: 2;
-    padding: 1.5rem max(1rem, calc((100vw - 60rem) / 2)) 1rem;
+    margin-top: -1.5rem; position: relative; z-index: 2;
+    height: 2.75rem;
     background: linear-gradient(135deg, var(--vermilion), var(--amber));
     clip-path: polygon(0 1.5rem, 100% 0, 100% calc(100% - 1.5rem), 0 100%);
     color: var(--charcoal);
   }
+  .franja.con-datos { height: auto; margin-top: -2.5rem; padding: 1.5rem max(1rem, calc((100vw - 60rem) / 2)) 1rem; }
   .franja :global(dd) { color: var(--charcoal); }
   .franja :global(dt), .franja :global(.ejemplo) { color: rgb(33 33 33 / .75); }
   .lead { margin: 0 0 1.5rem; color: #cfcfcf; font-size: 1.1rem; font-weight: 500; }
