@@ -7,13 +7,9 @@ presenta:
   pose: shrug
   texto: "Son pocas. Hasta Weasel las cumple. Casi siempre."
 
-etiqueta: EJEMPLO   # Borrá esta línea cuando las reglas estén confirmadas
-
 reglas:
   - titulo: Buena onda ante todo
     texto: "Acá nadie sabe todo. Ni Weasel. Sobre todo Weasel."
-  - titulo: El backseat se pide, no se impone
-    texto: "Si Weasel pide ayuda, ¡a full! Si no, dejalo equivocarse en paz."
   - titulo: Nada de spoilers
     texto: "De historias, de juegos y de finales de temporada. Avisá antes."
   - titulo: Cero odio
