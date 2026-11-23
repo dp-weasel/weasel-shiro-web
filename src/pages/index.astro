@@ -21,7 +21,7 @@ import Videos from "../components/portada/Videos.astro";
 import Reglas from "../components/portada/Reglas.astro";
 import Apoyar from "../components/portada/Apoyar.astro";
 import Ejemplo from "../components/ui/Ejemplo.astro";
-import armino from "../assets/brand/weasel-auriculares.png"; // = RecursosCC/pngTuber/weasel.png
+import armino from "../assets/brand/weasel-auriculares.svg"; // = RecursosCC/pngTuber/weasel-auriculares.svg (optimizado con svgo)
 import sticker from "../assets/brand/weasel-sticker-insignia.png"; // = RecursosCC/weasel-sticker-insignia.png
 import edmApuntando from "../assets/brand/edm/apuntando.png";
 import { leer, conNegritas } from "../lib/contenido";
@@ -55,7 +55,7 @@ const despedida = await leer("despedida");
         <Image src={sticker} alt="" width={640} widths={[320, 480, 640]} sizes="(max-width: 48rem) 60vw, 30vw" loading="eager" />
       </div>
       <div class="marca-agua" aria-hidden="true">
-        <Image src={armino} alt="" width={640} widths={[320, 640]} sizes="40vw" />
+        <Image src={armino} alt="" width={640} />
       </div>
       <div class="texto">
         <p class="eyebrow titulo-marca">{banner.antetitulo}</p>
