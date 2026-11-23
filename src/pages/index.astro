@@ -210,11 +210,15 @@ const despedida = await leer("despedida");
   /* Sticker "insignia" (RecursosCC/prototipoArmiño, estilo 07): centrado, un poco inclinado.
      max-width evita que se meta en el corte diagonal del lado derecho. */
   .naranja img { height: 78%; width: auto; max-width: 70%; object-fit: contain; margin-right: 16%; transform: rotate(-4deg); filter: drop-shadow(0 .6rem .8rem rgb(0 0 0 / .35)); }
-  .marca-agua :global(img) { display: block; width: 100%; height: auto; }
+  /* La caja no lleva transform (el espejado va en la imagen): con transform + filter +
+     opacity en la misma caja, Firefox aplicaba espejado el recorte del banner
+     (overflow: hidden) y en lugar de cortar lo que sobra a la derecha cortaba el hocico. */
+  .marca-agua :global(img) { display: block; width: 100%; height: auto; transform: scaleX(-1); }
   .marca-agua {
     position: absolute; z-index: -1; right: -6%; top: 50%;
-    width: min(42rem, 55vw); height: auto;
-    transform: translateY(-50%) scaleX(-1);
+    /* Centrada en vertical sin transform: margen de -la mitad del alto (alto = ancho × 828/640). */
+    --ancho: min(42rem, 55vw);
+    width: var(--ancho); height: auto; margin-top: calc(var(--ancho) * -.6469);
     filter: grayscale(1) brightness(.6); opacity: .12;
   }
   .texto { padding: 3rem 2rem 3rem 0; max-width: 34rem; }
@@ -316,7 +320,7 @@ const despedida = await leer("despedida");
     .naranja { place-items: start center; padding-top: 1rem; }
     .naranja img { height: 12.5rem; max-width: 80%; margin: 0; }
       .texto { padding: 1.5rem 1rem 3rem; }
-    .marca-agua { width: 90vw; top: 70%; }
+    .marca-agua { --ancho: 90vw; top: 70%; }
   }
   @media (max-width: 44rem) {
     .turno :global(.avatar) { width: 4.5rem !important; }
