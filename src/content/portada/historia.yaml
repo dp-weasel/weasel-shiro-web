@@ -6,12 +6,10 @@ presenta:
   quien: armino
   texto: "¿Querés saber cómo empezó todo esto? Te cuento, que yo estaba ahí."
 
-etiqueta: Historia supuesta   # Borrá esta línea cuando la historia sea la real
-
 parrafos:
-  - "Soy Weasel, argentino, y un día me animé a prender la cámara. Empecé a streamear en 2026 casi sin saber nada de OBS, y fui armando el canal de a poco: las escenas, la música, los personajes… todo hecho a mano."
-  - "¿Por qué Weasel Shiro? Weasel es comadreja en inglés, y shiro es blanco en japonés: un armiño blanco, como la mascota. Lo de los auriculares es porque la música es parte de cada directo."
-  - "Juego Guild Wars 2 sin ser un experto: me pierdo en los mapas, muero en los fractales y pregunto todo. La idea es aprender juntos, con buena onda y un mate siempre a mano."
+  - "Weasel es argentino y un día se animó a prender la cámara. Su primer directo fue a mediados de junio de 2025, casi sin saber nada de OBS, y fue armando el canal de a poco: las escenas, la música, los personajes (yo incluido)… todo hecho a mano, con un poco de ayuda de la IA 😅."
+  - "¿Por qué Weasel Shiro? Weasel es el nombre que usó siempre en internet y es como lo conocen todos sus amigos. ¿Y Shiro? Lo malo de los nombres cortos y sencillos es que siempre los tiene alguien más y es fácil que te confundan, así que básicamente lo eligió porque estaba disponible y le gustó cómo suena 😆."
+  - "Lo que siempre le gustó de Guild Wars 2 es su lado sociable: tener a alguien con quien charlar, ayudar a los nuevos a entender el juego o a conseguir algún logro… Por eso se animó a crear este canal: para llegar a más gente, ayudar a los que recién arrancan o quieren avanzar con el endgame, y divertirnos entre todos."
 
 # Ficha de datos al costado de la historia. Hoy no se muestra: sacale los # para que aparezca.
 # ficha:
@@ -20,4 +18,4 @@ parrafos:
 #   - { dato: Clase favorita, valor: "Guardián (EJEMPLO)" }
 #   - { dato: Mate, valor: "Amargo, con palo" }
 #   - { dato: Música, valor: Siempre algo sonando }
-#   - { dato: Streameando desde, valor: "2026" }
+#   - { dato: Streameando desde, valor: "2025" }

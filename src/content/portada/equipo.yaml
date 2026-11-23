@@ -11,12 +11,12 @@ personajes:
   - id: weasel
     nombre: Weasel
     rol: El que juega
-    texto: "Pone el mate, la música y la cara. Se pierde en los mapas con una seguridad admirable."
+    texto: "Con casi 5 mil horas de juego, cualquiera pensaría que es todo un pro en lo que hace… pero su conteo de muertes dice otra cosa."
     dato: "Frase típica: “Esperá que ya entiendo”."
   - id: armino
     nombre: Armiño
     rol: La mascota
-    texto: "Un armiño blanco con auriculares. No juega, pero opina de todo. Si alguien lo nombra en el chat, se asoma."
+    texto: "La cara visible del canal, porque Weasel es muy feo y espanta a la gente. Si alguien lo nombra en el chat, se asoma."
     dato: "Escribí “armiño” en el chat y fijate."
   - id: edm
     nombre: EDM
