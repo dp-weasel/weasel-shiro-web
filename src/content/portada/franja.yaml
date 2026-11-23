@@ -6,7 +6,7 @@
 #     seguidores           → la primera meta de metas.yaml, como "31/50"
 
 etiqueta: EJEMPLO          # Borrá esta línea cuando los datos sean reales
-inicio_canal: "2026-09-28" # Fecha del primer directo (AAAA-MM-DD)
+inicio_canal: "2025-06-14" # Fecha del primer directo (AAAA-MM-DD)
 
 datos:
   - auto: dia
