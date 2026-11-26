@@ -35,7 +35,7 @@ Consult these guides before working on related tasks:
 - Las imágenes van en `src/assets/` y se usan con `<Image>` de `astro:assets`; `public/` solo
   para archivos con URL fija (íconos, `og.png`). Ver `scripts/brand/`.
 - El sitio vive en la raíz del dominio en Cloudflare, pero también se compila bajo una subcarpeta
-  (`BASE_PATH=/AstroWeb/`, servidor local que imita GitHub Pages). Los enlaces internos y los
+  (`BASE_PATH=/weasel-shiro-web/`, servidor local que imita GitHub Pages). Los enlaces internos y los
   archivos de `public/` pasan siempre por `ruta("/gw2/mensajes/")` de `src/lib/rutas.ts`.
   En los YAML se escriben como `/gw2/mensajes/`.
 - Antes de hacer merge: `npm run check && npm run build`.
