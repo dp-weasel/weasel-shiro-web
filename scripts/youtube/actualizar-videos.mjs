@@ -4,7 +4,7 @@
 //
 //   npm run videos             solo actualiza los archivos (para mirar con npm run dev)
 //   npm run videos:publicar    actualiza, compila, hace commit en chore/videos-youtube,
-//                              lo mergea a master y hace push (publica en Cloudflare)
+//                              lo mergea a master, borra la rama y hace push (publica en Cloudflare)
 //
 // Lee el feed RSS público del canal (sin API key). Saltea los Shorts y los directos
 // programados o sin grabación. El ID del canal y cuántos videos mostrar están en
@@ -125,6 +125,10 @@ writeFileSync(DATOS, JSON.stringify({ videos }, null, 2) + "\n");
 const cambios = git("status", "--porcelain", "--", DATOS, MINIATURAS);
 if (!cambios) {
   console.log("✓ No hay videos nuevos: no cambió nada.");
+  if (publicar) {
+    const sinSubir = Number(git("rev-list", "--count", "origin/master..master"));
+    if (sinSubir) console.log(`  Ojo: master tiene ${sinSubir} commit(s) sin subir a GitHub. No se publicó nada (git push origin master para subirlos).`);
+  }
   process.exit(0);
 }
 console.log("✓ Videos actualizados.");
@@ -135,16 +139,10 @@ if (!publicar) {
 
 /* -------------------------------- Publicar -------------------------------- */
 
-// La rama se reutiliza en cada actualización: como ya está mergeada, se la pone en master.
-const existe = git("branch", "--list", RAMA) !== "";
-if (existe) {
-  try {
-    git("merge-base", "--is-ancestor", RAMA, "master");
-  } catch {
-    salir(`La rama ${RAMA} tiene commits que no están en master. Revisala a mano.`);
-  }
-}
-git("switch", "-C", RAMA);
+// La rama vive solo durante la publicación: se crea desde master y se borra después del merge.
+// Si quedó de una corrida anterior (p. ej. falló la compilación), no se la pisa.
+if (git("branch", "--list", RAMA)) salir(`Quedó la rama ${RAMA} de una corrida anterior. Revisala y borrala (git branch -D ${RAMA}).`);
+git("switch", "-c", RAMA);
 git("add", "--", DATOS, MINIATURAS);
 git("commit", "-m", `Actualiza los videos de YouTube\n\nÚltimo: ${videos[0]?.titulo ?? "—"}`);
 
@@ -153,11 +151,12 @@ try {
   run("npm", ["run", "build"]);
 } catch {
   git("switch", "master");
-  salir(`La compilación falló. El commit quedó en la rama ${RAMA}, master no se tocó.`);
+  salir(`La compilación falló. El commit quedó en la rama ${RAMA}, master no se tocó. Revisá el error y después borrá la rama (git branch -D ${RAMA}).`);
 }
 
 git("switch", "master");
 git("merge", "--no-ff", RAMA, "-m", `Merge ${RAMA}`);
+git("branch", "-d", RAMA);
 console.log("→ Publicando (push a master)…");
 run("git", ["push", "origin", "master"]);
 console.log("✓ Listo. Cloudflare va a publicar la web en unos minutos.");
