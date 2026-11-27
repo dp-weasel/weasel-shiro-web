@@ -1,32 +1,34 @@
 ---
-// Últimos videos de YouTube. Datos en src/content/portada/videos.yaml; las
-// miniaturas están en src/assets/brand/miniaturas/.
+// Últimos videos de YouTube. Los trae `npm run videos` (scripts/youtube/):
+// datos en src/content/portada/youtube.json y miniaturas en src/assets/youtube/.
 import { Image } from "astro:assets";
 import { leer } from "../../lib/contenido";
 import { leerPerfil } from "../../lib/perfil";
 import { miniatura } from "../../lib/imagenes";
-import Ejemplo from "../ui/Ejemplo.astro";
 
-const { videos, cantidad, nota, etiqueta, ver_canal } = await leer("videos");
+const { cantidad, ver_canal } = await leer("videos");
+const { videos } = await leer("youtube");
 const { redes } = await leerPerfil();
 const canal = redes.find((r) => r.red === "youtube")?.url;
 ---
 
 <div class="videos">
-  <ul>
-    {videos.slice(0, cantidad).map((v) => (
-      <li>
-        <a href={v.url ?? canal} target="_blank" rel="noopener">
-          <span class="mini">
-            <Image src={miniatura(v.miniatura)} alt="" width={480} widths={[320, 480]} sizes="(max-width: 40rem) 90vw, 20rem" />
-            <span class="dur">{v.duracion}</span>
-          </span>
-          <span class="titulo">{v.titulo}</span>
-        </a>
-      </li>
-    ))}
-  </ul>
-  <p class="nota">{nota} {etiqueta && <><Ejemplo texto={etiqueta} /> · </>}{canal && <a href={canal} target="_blank" rel="noopener">{ver_canal}</a>}</p>
+  {videos.length > 0 && (
+    <ul>
+      {videos.slice(0, cantidad).map((v) => (
+        <li>
+          <a href={`https://www.youtube.com/watch?v=${v.id}`} target="_blank" rel="noopener">
+            <span class="mini">
+              <Image src={miniatura(v.id)} alt="" width={480} widths={[320, 480]} sizes="(max-width: 40rem) 90vw, 20rem" />
+              {v.duracion && <span class="dur">{v.duracion}</span>}
+            </span>
+            <span class="titulo">{v.titulo}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  )}
+  {canal && <p class="nota"><a href={canal} target="_blank" rel="noopener">{ver_canal}</a></p>}
 </div>
 
 <style>

@@ -150,10 +150,18 @@ const videos = archivo(
   z.object({
     titulo: texto,
     cantidad: z.number().int().positive(),
-    videos: z.array(z.object({ titulo: texto, miniatura: texto, duracion: texto, url: z.url().optional() })),
-    nota: texto.optional(),
-    etiqueta,
+    canal_id: z.string().regex(/^UC[\w-]{22}$/, "El canal_id empieza con UC y tiene 24 caracteres"),
     ver_canal: texto,
+  }),
+);
+
+/** Lo genera `npm run videos` (scripts/youtube/actualizar-videos.mjs): no editar a mano. */
+const youtube = archivo(
+  "portada/youtube.json",
+  z.object({
+    videos: z.array(
+      z.object({ id: z.string(), titulo: texto, publicado: z.string(), duracion: z.string().optional() }),
+    ),
   }),
 );
 
@@ -290,6 +298,7 @@ export const collections = {
   comandos,
   metas,
   videos,
+  youtube,
   reglas,
   herramientas,
   apoyar,

@@ -16,7 +16,7 @@ el archivo, guardá y listo: con `npm run dev` se ve al instante, y al subir a `
 | Los stickers de EDM                             | `portada/stickers.yaml`              |
 | Escribí y pasa algo (comandos del chat)         | `portada/comandos.yaml`              |
 | Camino a Afiliado (metas)                       | `portada/metas.yaml`                 |
-| Lo último en YouTube                            | `portada/videos.yaml`                |
+| Lo último en YouTube (los videos: `npm run videos:publicar`) | `portada/videos.yaml`   |
 | Reglas de la casa                               | `portada/reglas.yaml`                |
 | Herramientas                                    | `portada/herramientas.yaml`          |
 | ¿Querés dar una mano?                           | `portada/apoyar.yaml`                |
