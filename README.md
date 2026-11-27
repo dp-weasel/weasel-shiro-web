@@ -115,6 +115,7 @@ public/                       Archivos servidos tal cual: favicon.ico, favicon-9
                               apple-touch-icon.png y og.png (vista previa al compartir)
 scripts/brand/                Generadores de los íconos y de og.png a partir del logo
 scripts/gw2/                  Importa los íconos de profesiones desde RecursosCC
+scripts/youtube/              Trae los últimos videos del canal (Lo último en YouTube)
 ```
 
 ### Imágenes
@@ -138,6 +139,24 @@ scripts/gw2/                  Importa los íconos de profesiones desde RecursosC
    sale de la ruta del archivo) y, si va en el menú, agregarla a `src/content/sitio/menu.yaml`.
 5. Usar siempre las variables de `src/styles/tokens.css` para los colores, así funciona en ambos temas.
 
+### Videos de YouTube
+
+"Lo último en YouTube" no se escribe a mano. **Después de subir un video**, desde `master` y
+sin cambios pendientes:
+
+```sh
+npm run videos:publicar
+```
+
+El script lee el feed RSS público del canal (sin API key), saltea los Shorts y los directos
+programados o sin grabación, y guarda los más recientes en `src/content/portada/youtube.json`,
+con sus miniaturas en `src/assets/youtube/`. Así el build no depende de YouTube. Después compila
+para verificar, hace commit en `chore/videos-youtube` (la rama se reutiliza cada vez), lo mergea a
+`master` y hace push, y con eso Cloudflare publica. Si no hay videos nuevos, no hace nada.
+
+Para ver cómo queda sin publicar: `npm run videos` y después `npm run dev`. Cuántos videos se
+muestran y el ID del canal están en `src/content/portada/videos.yaml`.
+
 ## Comandos
 
 | Comando           | Acción                                                  |
@@ -149,6 +168,8 @@ scripts/gw2/                  Importa los íconos de profesiones desde RecursosC
 | `npm run preview` | Sirve `dist/` para revisarlo antes de publicar          |
 | `npm run brand:icons` | Regenera los íconos de `public/` desde el logo      |
 | `npm run brand:og` | Regenera `public/og.png` (vista previa al compartir)   |
+| `npm run videos`  | Trae los últimos videos de YouTube (sin commit ni push) |
+| `npm run videos:publicar` | Trae los videos, compila, mergea a `master` y hace push |
 
 En Cloudflare hay que definir la variable de build `SITE_URL` con la URL pública (p. ej.
 `https://tu-dominio`): sin ella no se generan el sitemap ni las URLs absolutas de la vista previa
