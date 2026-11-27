@@ -1,11 +1,11 @@
 // Busca por nombre las imágenes que el contenido (src/content/) menciona:
-// poses de EDM y miniaturas de videos. Solo para el build (usa import.meta.glob).
+// poses de EDM y miniaturas de los videos de YouTube. Solo para el build (usa import.meta.glob).
 import type { ImageMetadata } from "astro";
 import type { PoseEdm } from "./edm";
 
 type Archivos = Record<string, { default: ImageMetadata }>;
 const poses: Archivos = import.meta.glob("../assets/brand/edm/*.png", { eager: true });
-const miniaturas: Archivos = import.meta.glob("../assets/brand/miniaturas/*.png", { eager: true });
+const miniaturas: Archivos = import.meta.glob("../assets/youtube/*.jpg", { eager: true });
 
 const buscar = (archivos: Archivos, carpeta: string, nombre: string) => {
   const img = archivos[`../assets/brand/${carpeta}/${nombre}.png`];
@@ -14,4 +14,8 @@ const buscar = (archivos: Archivos, carpeta: string, nombre: string) => {
 };
 
 export const imagenEdm = (pose: PoseEdm) => buscar(poses, "edm", pose);
-export const miniatura = (nombre: string) => buscar(miniaturas, "miniaturas", nombre);
+export const miniatura = (id: string) => {
+  const img = miniaturas[`../assets/youtube/${id}.jpg`];
+  if (!img) throw new Error(`Falta la miniatura src/assets/youtube/${id}.jpg: corré npm run videos`);
+  return img.default;
+};
