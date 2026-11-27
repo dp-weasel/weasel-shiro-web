@@ -22,7 +22,7 @@ import Reglas from "../components/portada/Reglas.astro";
 import Apoyar from "../components/portada/Apoyar.astro";
 import Ejemplo from "../components/ui/Ejemplo.astro";
 import armino from "../assets/brand/weasel-auriculares.svg"; // = RecursosCC/pngTuber/weasel-auriculares.svg (optimizado con svgo)
-import sticker from "../assets/brand/weasel-sticker-insignia.png"; // = RecursosCC/weasel-sticker-insignia.png
+import sticker from "../assets/brand/weasel-sticker.png"; // = RecursosCC/pngTuber/weasel-sticker.png (reducido a 1280 px)
 import edmApuntando from "../assets/brand/edm/apuntando.png";
 import { leer, conNegritas } from "../lib/contenido";
 import { imagenEdm } from "../lib/imagenes";
@@ -52,7 +52,7 @@ const despedida = await leer("despedida");
          de referencia de cómo quedaría. -->
     <section class="banner">
       <div class="naranja" aria-hidden="true">
-        <Image src={sticker} alt="" width={640} widths={[320, 480, 640]} sizes="(max-width: 48rem) 60vw, 30vw" loading="eager" />
+        <Image src={sticker} alt="" width={640} widths={[320, 480, 640, 960, 1280]} sizes="(max-width: 48rem) 60vw, 30vw" loading="eager" />
       </div>
       <div class="marca-agua" aria-hidden="true">
         <Image src={armino} alt="" width={640} />
