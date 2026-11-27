@@ -34,7 +34,9 @@ const salir = (mensaje) => {
 
 if (publicar) {
   if (git("branch", "--show-current") !== "master") salir("Para publicar, pasate primero a master (git switch master).");
-  if (git("status", "--porcelain", "--untracked-files=no")) salir("Hay cambios sin commit. Guardalos o descartalos antes de publicar.");
+  // Los cambios de un `npm run videos` previo (para revisar) no cuentan: son los mismos archivos que se publican.
+  const ajenos = git("status", "--porcelain", "--untracked-files=no", "--", ".", ":(exclude)src/content/portada/youtube.json", ":(exclude)src/assets/youtube");
+  if (ajenos) salir(`Hay cambios sin commit que no son de los videos. Guardalos o descartalos antes de publicar:\n${ajenos}`);
   console.log("→ Trayendo master de GitHub…");
   git("pull", "--ff-only", "origin", "master");
 }
