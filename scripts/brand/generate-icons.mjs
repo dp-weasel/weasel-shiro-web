@@ -1,4 +1,4 @@
-// Genera los íconos del sitio a partir del logo (armiño con auriculares).
+// Genera los íconos del sitio a partir del logo (armiño con auriculares, SVG).
 //   npm run brand:icons
 // Escribe en public/: favicon.ico (16, 32 y 48 px), favicon-96.png,
 // y apple-touch-icon.png (180 px).
@@ -6,16 +6,19 @@
 import { writeFile } from "node:fs/promises";
 import sharp from "sharp";
 
-const LOGO = "src/assets/brand/weasel-mouth-closed-headphones.png";
+const LOGO = "src/assets/brand/weasel-auriculares.svg";
 const OUT = "public";
 
 // Colores de src/styles/tokens.css
 const VERMILION = "#e64a19";
 const AMBER = "#ff9103";
 
-// En tamaños chicos el cuerpo no se distingue: se recorta la cabeza con los
-// auriculares (coordenadas sobre el original de 1024×1024).
-const HEAD = { left: 170, top: 60, width: 700, height: 700 };
+// El SVG se rasteriza a este ancho antes de recortar (736×952 en su tamaño natural).
+const RASTER_WIDTH = 1024;
+
+// En tamaños chicos el cuerpo no se distingue: se recorta un cuadrado con la cabeza
+// y los auriculares (fracciones del ancho del logo rasterizado).
+const HEAD = { left: 0, top: 0, size: 1 };
 
 function background(size, round) {
   const shape = round
@@ -32,7 +35,10 @@ function background(size, round) {
 /** Logo sobre el fondo naranja. `round`: círculo con esquinas transparentes. */
 async function icon(size, { round = true, crop = HEAD, scale = 0.92 } = {}) {
   const inner = Math.round(size * scale);
-  const logo = await sharp(LOGO).extract(crop).resize(inner, inner).png().toBuffer();
+  const raster = await sharp(LOGO, { density: 300 }).resize({ width: RASTER_WIDTH }).png().toBuffer();
+  const side = Math.round(RASTER_WIDTH * crop.size);
+  const area = { left: Math.round(RASTER_WIDTH * crop.left), top: Math.round(RASTER_WIDTH * crop.top), width: side, height: side };
+  const logo = await sharp(raster).extract(area).resize(inner, inner).png().toBuffer();
   const offset = Math.round((size - inner) / 2);
   return sharp(background(size, round))
     .composite([{ input: logo, top: offset, left: offset }])
