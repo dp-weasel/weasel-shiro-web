@@ -2,7 +2,7 @@
 # Cada clave de `mensajes` identifica al mensaje: en minúsculas, sin espacios ni tildes.
 # No la cambies si solo corriges el texto, así se conservan los cambios que cada persona
 # hizo en su navegador. El texto va entre comillas dobles.
-# Ver README.md › «Editar los mensajes de GW2».
+# Ver docs/mensajes-gw2.md.
 nombre: Raids
 orden: 3
 mensajes:

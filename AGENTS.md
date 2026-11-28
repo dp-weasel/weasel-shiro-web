@@ -23,7 +23,7 @@ Consult these guides before working on related tasks:
 
 ## Este proyecto
 
-- Todos los textos editables están en YAML en `src/content/` (guía: `src/content/LEEME.md`).
+- Todos los textos editables están en YAML en `src/content/` (guía: `docs/contenido.md`).
   Cada archivo es una colección con su esquema en `src/content.config.ts` y se lee con
   `leer("<nombre>")` de `src/lib/contenido.ts`. No escribir textos de contenido en los componentes.
 - Los mensajes de GW2 son un YAML por pestaña en `src/content/gw2/mensajes/`. Sus claves son
