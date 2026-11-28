@@ -9,154 +9,19 @@ Se publica en Cloudflare: cada push a `master` (rama de producción) compila y p
 | `/gw2/mensajes/`  | Mensajes de Guild Wars 2 que se copian con un clic             |
 | `/gw2/tierlist/`  | Tierlist de profesiones de GW2, con EDM opinando              |
 
-## Editar los textos
+Todos los textos están en archivos YAML dentro de [`src/content/`](src/content/), y cada uno se
+valida al compilar contra su esquema (`src/content.config.ts`).
 
-Todo el contenido está en archivos YAML dentro de [`src/content/`](src/content/): uno por
-sección de la portada, el perfil y las redes, el menú, y los textos de las páginas de GW2.
-La guía [`src/content/LEEME.md`](src/content/LEEME.md) dice qué archivo cambia qué y cómo
-escribirlos. Al compilar se valida cada archivo contra su esquema (`src/content.config.ts`).
+## Documentación
 
-## Editar los mensajes de GW2
+| Tema | Página |
+|---|---|
+| Qué archivo cambia qué texto y cómo escribirlos | [docs/contenido.md](docs/contenido.md) |
+| Mensajes de GW2: pestañas, cambios en el navegador, exportar e importar | [docs/mensajes-gw2.md](docs/mensajes-gw2.md) |
+| Estructura del código, imágenes y cómo agregar una funcionalidad | [docs/estructura.md](docs/estructura.md) |
+| "Lo último en YouTube": publicar los videos nuevos | [docs/youtube.md](docs/youtube.md) |
 
-Cada archivo de [`src/content/gw2/mensajes/`](src/content/gw2/mensajes/) es **una pestaña**: agregar un
-archivo `.yaml` agrega una pestaña y borrarlo la quita. El nombre del archivo es el que aparece en
-la URL (`/gw2/mensajes/#fractales`).
-
-```yaml
-nombre: Fractales          # Texto de la pestaña
-orden: 2                   # Posición (opcional; sin él, van al final por nombre)
-mensajes:
-  lfg-t4: "LFG T4 diarios + recomendados, busco healer…"
-  jefe-final: "En el jefe final: stackeen en la marca…"
-```
-
-- La **clave** de cada mensaje (`lfg-t4`) va en minúsculas, sin espacios ni tildes, y no debe
-  cambiar si solo corriges el texto: es lo que permite conservar los cambios que cada persona hizo
-  en su navegador. Si cambias la clave, para el navegador es un mensaje nuevo.
-- El **texto** va entre comillas dobles (así no fallan los `:` del medio). Para usar comillas
-  dentro del texto, escríbelas como `\"`.
-- `personalizado` es un nombre reservado: esa pestaña la llena cada persona en su navegador.
-
-Al hacer push a `master`, Cloudflare valida los archivos, compila y publica. Si un archivo tiene un
-error, la compilación falla con un mensaje claro y la versión publicada no cambia. Los mensajes de
-más de 199 caracteres (límite del chat de GW2) generan un aviso. Con la extensión de YAML de VS Code
-se autocompletan los campos y se marcan los errores al escribir (el esquema lo genera
-`npm run dev`/`build` en `.astro/`).
-
-### Cambios de cada persona (en su navegador)
-
-En la página, cada persona puede **editar**, **eliminar** (con «Deshacer» y «Restaurar
-eliminados») y **agregar** mensajes en cualquier pestaña, y tener los suyos en **Personalizado**.
-El editor no deja guardar textos vacíos ni de más de 199 caracteres.
-
-Se guarda en `localStorage` (clave `gw2-mensajes:v1`) solo la diferencia con lo publicado:
-textos editados, claves eliminadas y mensajes agregados. Por eso los mensajes nuevos que publiques
-le aparecen a todo el mundo, y si una persona editó un mensaje, conserva su versión aunque cambies
-el original. Ver `src/scripts/mensajes/messages-store.ts` y `src/scripts/mensajes/messages-editor.ts`.
-
-### Exportar e importar
-
-Al lado de «Ocultar a EDM» están **Exportar** e **Importar**. Exportar descarga en YAML lo que la
-persona ve en cada pestaña (Personalizado incluido). El formato es el mismo para importar:
-
-```yaml
-version: 1
-pestanas:
-  fractales:                 # id de la pestaña (nombre del archivo en src/content/gw2/mensajes/)
-    nombre: "Fractales"      # opcional
-    mensajes:
-      lfg-t4: "LFG T4 diarios…"
-```
-
-Al importar (archivo o texto pegado) primero se valida: YAML correcto, ids y claves en minúsculas,
-textos no vacíos y de hasta 199 caracteres. Si está bien, se elige entre **combinar** con lo que ya
-hay (no se pierde nada y no se repiten textos) o **usar solo los importados** (lo publicado que no
-venga queda eliminado y se puede restaurar). Las pestañas que no existen van a Personalizado.
-Siempre se puede deshacer. Ver `src/scripts/mensajes/transferencia.ts` (lógica) y
-`transferencia-ui.ts` (diálogo); la librería `yaml` se carga solo al importar.
-
-## Estructura
-
-```text
-src/
-├── content/                  TEXTOS EDITABLES (YAML). Guía: src/content/LEEME.md
-│   ├── sitio/                  perfil.yaml (nombre y redes), menu.yaml
-│   ├── portada/                Un archivo por sección de la portada
-│   └── gw2/                    Textos de las páginas de GW2, plantillas y frases de EDM
-│       └── mensajes/*.yaml       Pestañas y mensajes de GW2 (un archivo por pestaña)
-├── content.config.ts         Esquema de cada YAML (se valida al compilar)
-├── assets/                   Imágenes que Astro optimiza al compilar
-│   ├── brand/                  Logo, Armiño (SVG), poses de EDM, miniaturas de videos
-│   └── gw2/profesiones/        Íconos de la tierlist
-├── lib/                      Lógica compartida
-│   ├── contenido.ts            leer("<archivo>"): lee un YAML de src/content/
-│   ├── perfil.ts  redes.ts     Perfil con el ícono de cada red
-│   ├── edm.ts  imagenes.ts     Poses de EDM y búsqueda de imágenes por nombre
-│   └── gw2/                    Límite del chat, pestañas, profesiones y lógica de la tierlist
-├── layouts/BaseLayout.astro  Documento base: <head>, cabecera, pie, tema sin parpadeo
-├── components/               Una pieza de la interfaz por archivo, con sus estilos
-│   ├── layout/                 Cabecera, pie, redes y botón de tema
-│   ├── marca/                  Armiño animado, bocadillos, botones de redes, logo
-│   ├── portada/                Secciones de la portada y el globo que las presenta
-│   ├── mensajes/               Buscador, pestañas, mensaje copiable y editor
-│   ├── tierlist/               La tierlist
-│   └── ui/                     Piezas genéricas: avisos (Toast), etiqueta EJEMPLO, Hero
-├── scripts/                  Lógica del navegador
-│   ├── comun/                  Tema, portapapeles, avisos, normalización de texto
-│   ├── mensajes/               Pestañas, búsqueda y edición de mensajes (localStorage)
-│   └── tierlist/               Estado, arrastre y exportación de la tierlist
-├── styles/                   tokens.css (paleta y temas), global.css, marca.css, mensajes.css
-└── pages/                    Una ruta por archivo
-    ├── index.astro             Portada
-    ├── gw2/mensajes/index.astro  Mensajes de GW2
-    ├── gw2/tierlist.astro      Tierlist de GW2
-    └── robots.txt.ts           robots.txt con la URL del sitemap
-public/                       Archivos servidos tal cual: favicon.ico, favicon-96.png,
-                              apple-touch-icon.png y og.png (vista previa al compartir)
-scripts/brand/                Generadores de los íconos y de og.png a partir del logo
-scripts/gw2/                  Importa los íconos de profesiones desde RecursosCC
-scripts/youtube/              Trae los últimos videos del canal (Lo último en YouTube)
-```
-
-### Imágenes
-
-- Las imágenes que usa la página van en `src/assets/` y se importan con `<Image>` de
-  `astro:assets`: Astro las convierte a WebP en varios tamaños.
-- `public/` es solo para archivos que necesitan una URL fija (favicon, `og.png`).
-- Si cambia el logo: `npm run brand:icons` regenera los íconos y `npm run brand:og` regenera
-  `og.png` desde la plantilla `scripts/brand/og-card.html` (usa el Chrome del sistema).
-
-### Cómo agregar una funcionalidad
-
-1. Crear un componente en la subcarpeta que corresponda de `src/components/` con su HTML y su
-   `<style>` (los estilos quedan aislados en el componente).
-2. Los textos no van en el componente: van en un YAML de `src/content/`, con su esquema en
-   `src/content.config.ts` (`archivo("<carpeta>/<nombre>.yaml", z.object(…))`), y se leen con
-   `await leer("<nombre>")`. Sumarlo a la tabla de `src/content/LEEME.md`.
-3. Si necesita interactividad, escribir la lógica en `src/scripts/<funcionalidad>/` e
-   importarla desde un `<script>` del componente.
-4. Usarlo en una página de `src/pages/`. Para una página nueva, crear el archivo ahí (la ruta
-   sale de la ruta del archivo) y, si va en el menú, agregarla a `src/content/sitio/menu.yaml`.
-5. Usar siempre las variables de `src/styles/tokens.css` para los colores, así funciona en ambos temas.
-
-### Videos de YouTube
-
-"Lo último en YouTube" no se escribe a mano. **Después de subir un video**, desde `master` y
-sin cambios pendientes:
-
-```sh
-npm run videos:publicar
-```
-
-El script lee el feed RSS público del canal (sin API key), saltea los Shorts y los directos
-programados o sin grabación, y guarda los más recientes en `src/content/portada/youtube.json`,
-con sus miniaturas en `src/assets/youtube/`. Así el build no depende de YouTube. Después compila
-para verificar, hace commit en `chore/videos-youtube`, lo mergea a `master`, borra la rama y hace push, y
-con eso Cloudflare publica. Si no hay videos nuevos, no hace nada (y avisa si `master` tiene
-commits sin subir).
-
-Para ver cómo queda sin publicar: `npm run videos` y después `npm run dev`. Cuántos videos se
-muestran y el ID del canal están en `src/content/portada/videos.yaml`.
+Lo pendiente está en los [Issues](https://github.com/dp-weasel/weasel-shiro-web/issues).
 
 ## Comandos
 
@@ -172,10 +37,12 @@ muestran y el ID del canal están en `src/content/portada/videos.yaml`.
 | `npm run videos`  | Trae los últimos videos de YouTube (sin commit ni push) |
 | `npm run videos:publicar` | Trae los videos, compila, mergea a `master` y hace push |
 
-En Cloudflare hay que definir la variable de build `SITE_URL` con la URL pública (p. ej.
-`https://tu-dominio`): sin ella no se generan el sitemap ni las URLs absolutas de la vista previa
-al compartir. En local no hace falta.
+## Variables de build
 
-`BASE_PATH` (opcional) compila el sitio en una subcarpeta, p. ej. `BASE_PATH=/weasel-shiro-web/ npm run build`
-para el servidor local (`http://fedora.lan/weasel-shiro-web/`). Sin ella, el sitio va en la raíz. Por eso
-los enlaces internos usan `ruta()` de `src/lib/rutas.ts`.
+- `SITE_URL`: hay que definirla en Cloudflare con la URL pública (p. ej. `https://tu-dominio`). Sin
+  ella no se generan el sitemap ni las URLs absolutas de la vista previa al compartir. En local no
+  hace falta.
+- `BASE_PATH` (opcional): compila el sitio en una subcarpeta, p. ej.
+  `BASE_PATH=/weasel-shiro-web/ npm run build` para el servidor local
+  (`http://fedora.lan/weasel-shiro-web/`). Sin ella, el sitio va en la raíz. Por eso los enlaces
+  internos usan `ruta()` de `src/lib/rutas.ts`.

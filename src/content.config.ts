@@ -1,4 +1,4 @@
-// Esquema del contenido editable de src/content/ (ver src/content/LEEME.md).
+// Esquema del contenido editable de src/content/ (ver docs/contenido.md).
 // Cada archivo YAML es una colección: si no cumple su esquema, `astro build`
 // falla con un error claro en lugar de publicar una página rota.
 // Las páginas leen cada archivo con leer("<nombre>") de src/lib/contenido.ts.

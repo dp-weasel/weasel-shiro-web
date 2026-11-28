@@ -2,8 +2,8 @@
 // Portada: banner diagonal, charla entre el Armiño y EDM, equipo, historia,
 // stickers, comandos, metas, videos, reglas, herramientas, apoyo y preguntas.
 // Todos los textos están en src/content/portada/ (un YAML por sección; ver
-// src/content/LEEME.md). Lo que falta definir lleva una `etiqueta` (EJEMPLO,
-// Idea…) en su YAML (ver todo.md).
+// docs/contenido.md). Lo que falta definir lleva una `etiqueta` (EJEMPLO,
+// Idea…) en su YAML (pendientes en los Issues del repo).
 import { Image } from "astro:assets";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import "@fontsource-variable/unbounded";
@@ -48,7 +48,7 @@ const despedida = await leer("despedida");
   <main data-escena>
     <!-- 1. Banner (de la variante 2) -->
     <!-- Logo actual con auriculares. Pendiente: reemplazarlo por un logo nuevo
-         en el estilo del pngTuber (ver todo.md). <ArminoVivo auriculares /> sirve
+         en el estilo del pngTuber (issue #2). <ArminoVivo auriculares /> sirve
          de referencia de cómo quedaría. -->
     <section class="banner">
       <div class="naranja" aria-hidden="true">

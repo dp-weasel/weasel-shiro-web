@@ -1,6 +1,6 @@
 # Contenido editable
 
-Todos los textos de la web están en esta carpeta, en archivos YAML. Para cambiar algo, editá
+Todos los textos de la web están en `src/content/`, en archivos YAML (las rutas de abajo son desde ahí). Para cambiar algo, editá
 el archivo, guardá y listo: con `npm run dev` se ve al instante, y al subir a `master` se publica.
 
 | Qué querés cambiar                              | Archivo                              |
