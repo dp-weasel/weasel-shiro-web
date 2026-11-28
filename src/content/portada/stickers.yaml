@@ -1,6 +1,6 @@
 # "Los stickers de EDM": palabras del chat de Twitch que hacen aparecer a EDM como sticker en el
 # directo (overlay de ObsScenes: overlays/stickers/, catálogo en ObsScenes/TODOPoses.md).
-#   nombre: la palabra que se escribe (y el nombre del emote en 7TV, si se suben)
+#   nombre: la palabra que se escribe en el chat
 #   pose: nombre de un archivo de src/assets/brand/edm/ (sin .png)
 #   tambien: opcional; otras palabras que disparan el mismo sticker
 # Si se cambia una palabra acá, cambiarla también en CATALOGO de ObsScenes/shared/stickers.js.
@@ -34,9 +34,3 @@ usos:
     texto: "Sola o en una frase («jaja no puede ser»): EDM aparece en el stream con esa pose y la palabra abajo."
   - cuando: Armá un combo
     texto: "Si más gente escribe la misma mientras está en pantalla, salta «+1» con el nombre de cada uno y sube el contador."
-  - cuando: En el chat, con 7TV
-    texto: "Con la extensión 7TV (gratis), las mismas palabras se verían como emotes en el chat de Twitch."
-    etiqueta: Idea
-  - cuando: Al ser Afiliados
-    texto: "Pasan a ser emotes oficiales del canal, con el prefijo de Twitch (por ejemplo weaselHola)."
-    etiqueta: Con Afiliado
