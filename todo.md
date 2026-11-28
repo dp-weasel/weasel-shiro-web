@@ -54,9 +54,11 @@ lleva una `etiqueta` (EJEMPLO, Idea, Historia supuesta…): al borrarla del YAML
       Hecho en `ObsScenes/overlays/stickers/`.
 - [ ] **7TV (idea):** subir los stickers como emotes para quienes tengan la extensión. Hacen falta
       recortes de cara o medio cuerpo: de cuerpo entero no se ven a 28 px.
-- [ ] **Comandos del chat:** `!edm`, "armiño" y el saludo ya existen en las escenas ("mate" ya no:
-      se sacó para no gastar el chiste). `!horario`, `!redes` y `!lurk` son ideas: hacen falta en un
-      bot (StreamElements, Nightbot) o hay que sacarlos de la lista.
+- [x] **Comandos del chat** (`portada/comandos.yaml`): `!redes`, `!lurk`, `!donar` y `!stickers` los
+      contesta el Cloudbot de Streamlabs; `!edm`, "armiño", el saludo y los stickers pasan en pantalla.
+      `!horario` se descartó y "mate" ya no reacciona (para no gastar el chiste).
+- [ ] **`!stickers` en Streamlabs:** configurar el comando con el texto de `ObsScenes/TODOPoses.md`
+      (sección "Comando !stickers"). Actualizarlo si cambian las palabras.
 
 ## Enlaces
 
