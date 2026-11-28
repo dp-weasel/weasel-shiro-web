@@ -1,37 +1,36 @@
-# "Los stickers de EDM": las poses de EDM como emotes, y cómo se usarían.
+# "Los stickers de EDM": palabras del chat de Twitch que hacen aparecer a EDM como sticker en el
+# directo (overlay de ObsScenes: overlays/stickers/, catálogo en ObsScenes/TODOPoses.md).
+#   nombre: la palabra que se escribe en el chat
 #   pose: nombre de un archivo de src/assets/brand/edm/ (sin .png)
+#   tambien: opcional; otras palabras que disparan el mismo sticker
+# Si se cambia una palabra acá, cambiarla también en CATALOGO de ObsScenes/shared/stickers.js.
 
 titulo: Los stickers de EDM
 
 presenta:
   quien: edm
   pose: sorprendida
-  texto: "¿Esa soy yo? ¿Y por qué tengo once caras? Bueno, usalas en el chat."
+  texto: "¿Esa soy yo? ¿Doce caras? Bueno: escribí una en el chat y aparezco en el directo."
 
 stickers:
-  - { nombre: edmHola, pose: saludando, uso: para saludar }
-  - { nombre: edmHype, pose: cheer, uso: cuando sale el loot }
-  - { nombre: edmLOL, pose: riendo-en-el-suelo, uso: cuando Weasel se cae }
-  - { nombre: edmShrug, pose: shrug, uso: "“ni idea”" }
-  - { nombre: edmF, pose: triste, uso: wipe en el fractal }
-  - { nombre: edmHiss, pose: hiss, uso: backseat no pedido }
-  - { nombre: edmGRITO, pose: gritando, uso: jefe al 1 % }
-  - { nombre: edmQue, pose: sorprendida, uso: plot twist }
-  - { nombre: edmMira, pose: apuntando, uso: "¡ahí está el cofre!" }
-  - { nombre: edmPorfa, pose: arrodillada, uso: pedir un mate }
-  - { nombre: edmSad, pose: triste-mirando-al-suelo, uso: se terminó el directo }
+  - { nombre: jaja, pose: riendo-en-el-suelo, uso: cuando Weasel se cae, tambien: "lol, xd" }
+  - { nombre: vamos, pose: cheer, uso: cuando sale el loot, tambien: "pog, gg" }
+  - { nombre: hola, pose: saludando, uso: para saludar, tambien: "buenas, chau" }
+  - { nombre: F, pose: triste, uso: wipe en el fractal, tambien: rip }
+  - { nombre: que, pose: sorprendida, uso: plot twist, tambien: wtf }
+  - { nombre: aaaa, pose: gritando, uso: jefe al 1 %, tambien: "dale dale" }
+  - { nombre: niidea, pose: shrug, uso: "“ni idea”", tambien: "??" }
+  - { nombre: ahi, pose: apuntando, uso: "¡ahí está el cofre!", tambien: mira }
+  - { nombre: hiss, pose: hiss, uso: backseat no pedido, tambien: "eso no" }
+  - { nombre: mmm, pose: brazos-cruzados, uso: sospechoso, tambien: sus }
+  - { nombre: nooo, pose: triste-mirando-al-suelo, uso: se terminó el directo, tambien: sadge }
+  - { nombre: porfa, pose: arrodillada, uso: pedir algo, tambien: plis }
 
-nota: "Las poses existen; los nombres y que estén en Twitch son una idea."
-etiqueta: Próximamente
+nota: "Funcionan en el chat de Twitch durante el directo. Mayúsculas y tildes dan igual."
 
-# Pasos numerados debajo de los stickers. `etiqueta` es opcional.
+# Pasos numerados debajo de los stickers. `etiqueta` es opcional (marca lo que todavía no existe).
 usos:
-  - cuando: En el directo
-    texto: "Escribí el nombre de un sticker en el chat y EDM aparece en pantalla con esa pose."
-    etiqueta: Idea
-  - cuando: En el chat, ya
-    texto: "Con la extensión 7TV (gratis), los stickers se ven como emotes en el chat de Twitch."
-    etiqueta: Idea
-  - cuando: Al ser Afiliados
-    texto: "Pasan a ser emotes oficiales del canal, con el prefijo de Twitch (por ejemplo weaselHola)."
-    etiqueta: Con Afiliado
+  - cuando: Escribí la palabra
+    texto: "Sola o en una frase («jaja no puede ser»): EDM aparece en el stream con esa pose y la palabra abajo."
+  - cuando: Armá un combo
+    texto: "Si más gente escribe la misma mientras está en pantalla, salta «+1» con el nombre de cada uno y sube el contador."
