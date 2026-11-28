@@ -1,5 +1,6 @@
 ---
-// Galería de emotes/stickers de EDM con su "uso" en el chat.
+// Galería de stickers de EDM: la palabra que se escribe en el chat, su "uso" y otras palabras
+// que disparan el mismo sticker.
 // Textos en src/content/portada/stickers.yaml.
 import { Image } from "astro:assets";
 import { leer } from "../../lib/contenido";
@@ -16,8 +17,9 @@ const { cantidad = stickers.length } = Astro.props;
     {stickers.slice(0, cantidad).map((e) => (
       <li>
         <Image src={imagenEdm(e.pose)} alt={`EDM: ${e.nombre}`} height={180} />
-        <code>:{e.nombre}:</code>
+        <code>{e.nombre}</code>
         <small>{e.uso}</small>
+        {e.tambien && <small class="tambien">también: {e.tambien}</small>}
       </li>
     ))}
   </ul>
@@ -37,5 +39,6 @@ const { cantidad = stickers.length } = Astro.props;
   img { height: 5.5rem; width: auto; }
   code { font-family: var(--font-label); font-size: .9rem; color: var(--magenta); }
   small { color: var(--muted); font-size: .75rem; line-height: 1.2; }
+  .tambien { font-size: .7rem; opacity: .8; }
   .nota { margin: .75rem 0 0; text-align: center; color: var(--muted); font-size: .85rem; }
 </style>

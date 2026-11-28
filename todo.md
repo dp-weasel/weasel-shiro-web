@@ -48,15 +48,15 @@ lleva una `etiqueta` (EJEMPLO, Idea, Historia supuesta…): al borrarla del YAML
 
 ## Stickers de EDM y el chat
 
-- [ ] **Nombres de los stickers** (`portada/stickers.yaml`): `edmHola`, `edmHype`… En Twitch los emotes llevan el prefijo
-      del canal, que se elige al ser Afiliado (por ejemplo `weaselHola`), así que conviene decidir los
-      nombres pensando en eso.
-- [ ] **Stickers en pantalla (idea):** que escribir el nombre de un sticker en el chat haga aparecer a EDM
-      con esa pose. Se haría en `ObsScenes/shared/reacciones.js`.
-- [ ] **7TV (idea):** subir los stickers como emotes para quienes tengan la extensión.
-- [ ] **Comandos del chat:** `!edm`, "mate", "armiño", "jaja" y el saludo ya existen en las escenas.
-      `!horario`, `!redes` y `!lurk` son ideas: hacen falta en un bot (StreamElements, Nightbot) o hay
-      que sacarlos de la lista.
+- [x] **Nombres de los stickers** (`portada/stickers.yaml`): palabras sueltas sin prefijo (`jaja`, `F`,
+      `vamos`…), las mismas del overlay de ObsScenes (`shared/stickers.js`). Si cambian, cambiar los dos.
+- [x] **Stickers en pantalla:** escribir la palabra en el chat de Twitch hace aparecer a EDM, con combos.
+      Hecho en `ObsScenes/overlays/stickers/`.
+- [ ] **7TV (idea):** subir los stickers como emotes para quienes tengan la extensión. Hacen falta
+      recortes de cara o medio cuerpo: de cuerpo entero no se ven a 28 px.
+- [ ] **Comandos del chat:** `!edm`, "armiño" y el saludo ya existen en las escenas ("mate" ya no:
+      se sacó para no gastar el chiste). `!horario`, `!redes` y `!lurk` son ideas: hacen falta en un
+      bot (StreamElements, Nightbot) o hay que sacarlos de la lista.
 
 ## Enlaces
 

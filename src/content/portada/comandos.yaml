@@ -7,17 +7,15 @@ titulo: Escribí y pasa algo
 presenta:
   quien: edm
   pose: hiss
-  texto: "Si escribís !edm, contesto. Si nombrás el mate, opino. No me provoques."
+  texto: "Si escribís !edm, contesto. Si nombrás al Armiño, se asoma. No me provoques."
 
 comandos:
   - comando: "!edm"
     que_hace: "EDM te contesta en pantalla con una frase al azar."
-  - comando: mate
-    que_hace: "Nombrá el mate en cualquier mensaje y EDM opina al respecto."
   - comando: armiño
     que_hace: "Nombrá al Armiño y se asoma desde abajo de la pantalla."
-  - comando: jaja
-    que_hace: "Si el chat se ríe, EDM se tira al piso de la risa."
+  - comando: jaja, F, vamos…
+    que_hace: "Las palabras de los stickers hacen aparecer a EDM con esa pose (ver arriba)."
   - comando: tu primer mensaje
     que_hace: "EDM te saluda por tu nombre la primera vez que hablás."
   - comando: "!horario"

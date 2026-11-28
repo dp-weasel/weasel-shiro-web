@@ -117,7 +117,7 @@ const stickers = archivo(
   z.object({
     titulo: texto,
     presenta,
-    stickers: z.array(z.object({ nombre: texto, pose, uso: texto })),
+    stickers: z.array(z.object({ nombre: texto, pose, uso: texto, tambien: texto.optional() })),
     nota: texto.optional(),
     etiqueta,
     usos: z.array(z.object({ cuando: texto, texto, etiqueta })),
